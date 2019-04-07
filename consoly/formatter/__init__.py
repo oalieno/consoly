@@ -1,6 +1,12 @@
+from sys import stdout
+
 from ..color import Color
 
+
 class Formatter:
+    def __init__(self, file = stdout):
+        self.file = file
+
     @staticmethod
     def itemgetter(*items):
         def fn(obj):
@@ -16,6 +22,8 @@ class Formatter:
 
         return fn
 
+    def write(self, text):
+        print(text, file=self.file)
 
     def paint(self, color, text, inverse = False):
         if inverse:

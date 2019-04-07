@@ -1,8 +1,9 @@
 from .color import Color
 from .formatter.fancyFormatter import FancyFormatter
 
+
 class Consoly:
-    def __init__(self, formatter, level=None, types=None):
+    def __init__(self, formatter, level = None, types = None):
         if level is None: level = 30
         if types is None: types = {}
 
@@ -39,6 +40,7 @@ class Consoly:
 
     def setTypes(self, types):
         for t, v in types.items():
+
             def wrapper(t, v):
                 def fn(text, **kwargs):
                     if v['level'] >= self.level:
@@ -48,6 +50,13 @@ class Consoly:
 
             setattr(self, t, wrapper(t, v))
 
+    def set(self, member, value):
+        setattr(self, member, value)
+
+    def get(self, member):
+        return getattr(self, member)
+
+
 consoly = Consoly(FancyFormatter())
 
 critical = consoly.critical
@@ -55,6 +64,8 @@ error    = consoly.error
 warning  = consoly.warning
 info     = consoly.info
 debug    = consoly.debug
+set      = consoly.set
+get      = consoly.get
 
 __all__ = (
     'consoly',
@@ -62,5 +73,7 @@ __all__ = (
     'error',
     'warning',
     'info',
-    'debug'
+    'debug',
+    'set',
+    'get'
 )

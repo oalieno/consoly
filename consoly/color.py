@@ -1,7 +1,8 @@
 from copy import deepcopy
 
+
 class Color:
-    def __init__(self, r, g, b, bg=False):
+    def __init__(self, r, g, b, bg = False):
         if not self.valid(r) or not self.valid(g) or not self.valid(b):
             pass
 
@@ -16,7 +17,7 @@ class Color:
         return c
 
     @classmethod
-    def fromhex(cls, h, bg=False):
+    def fromhex(cls, h, bg = False):
         h = h.lstrip('#')
         return Color(int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16), bg)
 
@@ -32,10 +33,10 @@ class Color:
         return f'\x1b[{48 if self.bg else 38};2;{self.r};{self.g};{self.b}m'
 
 
-Color.red = Color.fromhex('#EC2049')
-Color.green = Color.fromhex('#1FDA9A')
-Color.blue = Color.fromhex('#3A9AD9')
+Color.red    = Color.fromhex('#EC2049')
+Color.green  = Color.fromhex('#1FDA9A')
+Color.blue   = Color.fromhex('#3A9AD9')
 Color.yellow = Color.fromhex('#F9D423')
-Color.white = Color.fromhex('#FFFFFF')
-Color.gray = Color.fromhex('#777777')
-Color.black = Color.fromhex('#000000')
+Color.white  = Color.fromhex('#FFFFFF')
+Color.gray   = Color.fromhex('#777777')
+Color.black  = Color.fromhex('#000000')
