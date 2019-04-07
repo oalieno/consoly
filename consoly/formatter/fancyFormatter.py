@@ -6,9 +6,11 @@ from ..color import Color
 class FancyFormatter(Formatter):
     def format(self, text, typeData, **kwargs):
         name, color, icon = self.itemgetter('name', 'color', 'icon')(typeData)
-        badge, time = self.itemgetter(('badge', False), ('time', False))(kwargs)
+        badge, time, short = self.itemgetter(('badge', False), ('time', False), ('short', False))(kwargs)
 
         header = ''
+        if short:
+            name = name[0].upper()
         if badge:
             if time:
                 t = datetime.now().strftime('%H:%M:%S')
