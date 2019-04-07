@@ -1,6 +1,8 @@
-# consoly
+# 🖥 Consoly
 
 Elegant Console Logger for Python
+
+![MIT](https://img.shields.io/github/license/oalieno/consoly.svg)
 
 ## Installation
 
@@ -71,7 +73,7 @@ consoly.success('it works')
 
 ### Consoly
 
-default instance `consoly` is created by [`Consoly(FancyFormatter())`](/consoly/__init__.py#L57)
+default instance `consoly` is created by [`Consoly(FancyFormatter())`](/consoly/__init__.py#L5)
 
 #### `consoly.level`
 
