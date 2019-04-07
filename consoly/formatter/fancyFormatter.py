@@ -1,13 +1,13 @@
 from datetime import datetime
 
-from . import Formatter
+from .formatter import Formatter
 from ..color import Color
 
 
 class FancyFormatter(Formatter):
-    def format(self, text, typeData, **kwargs):
+    def format(self, text, typeData, formatData):
         name, color, icon = self.itemgetter('name', 'color', 'icon')(typeData)
-        badge, time, short = self.itemgetter(('badge', False), ('time', False), ('short', False))(kwargs)
+        badge, time, short = self.itemgetter(('badge', False), ('time', False), ('short', False))(formatData)
 
         header = ''
         if short:
@@ -15,12 +15,12 @@ class FancyFormatter(Formatter):
         if badge:
             if time:
                 t = datetime.now().strftime('%H:%M:%S')
-                header += self.paint(Color.gray, f' {t} ', inverse = True)
-            header += self.paint(color, f' {name.upper()} ', inverse = True)
+                header += Color.gray.inverse.paint(f' {t} ')
+            header += color.inverse.paint(f' {name.upper()} ')
         else:
             if time:
                 t = datetime.now().strftime('%H:%M:%S')
-                header += self.paint(Color.gray, f'⧗ {t} ┃ ')
-            header += self.paint(color, f'{icon} {name}')
+                header += Color.gray.paint(f'⧗ {t} ┃ ')
+            header += color.paint(f'{icon} {name}')
 
         self.write(f'{header} {text}')

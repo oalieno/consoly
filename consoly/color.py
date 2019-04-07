@@ -2,35 +2,61 @@ from copy import deepcopy
 
 
 class Color:
-    def __init__(self, r, g, b, bg = False):
-        if not self.valid(r) or not self.valid(g) or not self.valid(b):
-            pass
+    def __init__(self, rgb = None, bold = False, italic = False, underline = False, inverse = False):
+        if rgb is None: rgb = []
 
-        self.r = r
-        self.g = g
-        self.b = b
-        self.bg = bg
+        self.rgb = rgb
+        self._bold = bold
+        self._italic = italic
+        self._underline = underline
+        self._inverse = inverse
 
-    def inverse(self):
+    @classmethod
+    def fromhex(cls, h, **kwargs):
+        h = h.lstrip('#')
+        return Color([int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)], **kwargs)
+
+    @property
+    def bold(self):
         c = deepcopy(self)
-        c.bg = not c.bg
+        c._bold = True
         return c
 
-    @classmethod
-    def fromhex(cls, h, bg = False):
-        h = h.lstrip('#')
-        return Color(int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16), bg)
+    @property
+    def italic(self):
+        c = deepcopy(self)
+        c._italic = True
+        return c
 
-    @classmethod
-    def reset(cls):
-        return '\x1b[0m'
+    @property
+    def underline(self):
+        c = deepcopy(self)
+        c._underline = True
+        return c
 
-    @staticmethod
-    def valid(v):
-        return 0 <= v <= 255
+    @property
+    def inverse(self):
+        c = deepcopy(self)
+        c._inverse = True
+        return c
 
     def trueColor(self):
-        return f'\x1b[{48 if self.bg else 38};2;{self.r};{self.g};{self.b}m'
+        s = ''
+        if self._bold:
+            s += '\x1b[1m'
+        if self._italic:
+            s += '\x1b[3m'
+        if self._underline:
+            s += '\x1b[4m'
+        if self._inverse:
+            s += '\x1b[7m'
+        if self.rgb:
+            r, g, b = self.rgb
+            s += f'\x1b[38;2;{r};{g};{b}m'
+        return s
+
+    def paint(self, text):
+        return f'{self.trueColor()}{text}\x1b[0m'
 
 
 Color.red    = Color.fromhex('#EC2049')
