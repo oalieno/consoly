@@ -17,7 +17,7 @@ class FancyFormatter(Formatter):
         else:
             if time:
                 t = datetime.now().strftime('%H:%M:%S')
-                header += self.paint(Color.gray, f'{t} ┃ ')
+                header += self.paint(Color.gray, f'⧗ {t} ┃ ')
             header += self.paint(color, f'{icon} {name}')
 
         print(f'{header} {text}')
