@@ -105,6 +105,21 @@ see [Formatter](#formatter)
 
 default formatter is [FancyFormatter](/consoly/formatter/fancyFormatter.py)
 
+#### FancyFormatter
+
+option for FancyFormatter
+
+```python
+# set option default
+consoly.defaults = { 'badge': True, 'time': True, 'short': True }
+consoly.debug('hello')
+
+# set option directly
+consoly.debug('hello', badge = True, time = True, short = True)
+```
+
+<img src="https://i.imgur.com/aVbZsQJ.png" width="200">
+
 #### set output file ( default is sys.stdout )
 
 ```python
